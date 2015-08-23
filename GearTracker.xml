@@ -17,20 +17,57 @@
 				<AbsValue val="32" />
 			</EdgeSize>
 		</Backdrop>
-        <!--<Layers>
-<Button name="$parentDownload" inherits="UIPanelButtonTemplate" text="DOWNLOAD_BUTTON_TEXT">
-				<Size x="80" y="23" />
+        <Layers>
+        <Layer level="ARTWORK">
+				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size><AbsDimension x="256" y="64"/></Size>
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="GearTrackerFrame" relativePoint="TOP">
+							<Offset><AbsDimension x="0" y="-20"/></Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+			<FontString name="$parentString" inherits="GameFontNormal" text="Gear Tracker">
+				<Size x="134" y="20" />
 				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset x="102" y="-65" />
+					<Anchor point="TOP" relativeTo="GearTrackerFrame" relativePoint="TOP">
+						<Offset x="0" y="2" />
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+        <Layer>
+            <CheckButton name="$parentSpecOne" inherits="OptionsCheckButtonTemplates" checked="true">
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+                            <AbsDimension x="0" y="0"></AbsDimension>
+                        </Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						WowDiabetesDownloadButton_OnClick()
-					</OnClick>
 				</Scripts>
-			</Button>
-        </Layers>-->
+			</CheckButton>
+            </Layer>
+        </Layers>
+        <Scripts>
+			<OnLoad>
+				GearTracker_OnLoad(self)
+			</OnLoad>
+			<OnEvent>
+				GearTracker_OnEvent(self, event, ...)
+			</OnEvent>
+			<OnClick>
+				GearTracker_OnClickFrame()
+			</OnClick>
+			<OnDragStart>
+				self:StartMoving()
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing()
+			</OnDragStop>
+		</Scripts>
     </Frame>
-</UI>
+</Ui>
