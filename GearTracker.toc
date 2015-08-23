@@ -1,0 +1,9 @@
+## Interface: 60200
+## Title: Gear Tracker
+## Notes: Checks to see if you have the correct gear equipped.
+## Version: .1
+## SavedVariablesPerCharacter: currentGearSets
+## Author: Mackster
+
+GearTracker.lua
+GearTracker.xml

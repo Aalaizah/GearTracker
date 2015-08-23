@@ -1,0 +1,36 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+<Frame name="GearTrackerFrame" parent="UIParent" movable="true" enableMouse="true">
+		<Size x="200" y="185" /> 
+		<Anchors>
+			<Anchor point="TOP" relativeTo="TargetFrame" relativePoint="BOTTOM">
+				<Offset x="20" y="-20" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+        <!--<Layers>
+<Button name="$parentDownload" inherits="UIPanelButtonTemplate" text="DOWNLOAD_BUTTON_TEXT">
+				<Size x="80" y="23" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="102" y="-65" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						WowDiabetesDownloadButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+        </Layers>-->
+    </Frame>
+</UI>
