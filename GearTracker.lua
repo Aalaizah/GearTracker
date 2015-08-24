@@ -9,6 +9,9 @@ function GearTracker_OnLoad(frame)
 	frame:RegisterEvent("ADDON_LOADED")
 	frame:RegisterEvent("VARIABLES_LOADED")
     frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    frame:RegisterEvent("READY_CHECK")
+    frame:RegisterEvent("WEAR_EQUIPMENT_SET")
 	-- Mouse handling
 	frame:RegisterForDrag("LeftButton")
 end
@@ -24,6 +27,19 @@ function eventHandlers.ADDON_LOADED(frame, ...)
         end
     end
     frame:UnregisterEvent("ADDON_LOADED")
+end
+
+function eventHandlers.ACTIVE_TALENT_GROUP_CHANGED()
+    GearTracker_Update()
+end
+
+function eventHandlers.READY_CHECK()
+    GearTracker_Check()
+end
+
+function eventHandlers.WEAR_EQUIPMENT_SET()
+    GearTracker_Update()
+    GearTracker_Check()
 end
 
 function eventHandlers.VARIABLES_LOADED()
