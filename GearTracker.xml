@@ -6,7 +6,7 @@
 				<Offset x="20" y="-20" />
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<!--<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
@@ -51,7 +51,7 @@
 				</Scripts>
 			</CheckButton>
             </Layer>
-        </Layers>
+        </Layers>-->
         <Scripts>
 			<OnLoad>
 				GearTracker_OnLoad(self)
