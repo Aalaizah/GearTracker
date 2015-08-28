@@ -19,17 +19,17 @@
 		</Backdrop>
         <Layers>
         <Layer level="ARTWORK">
-				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
-					<Size><AbsDimension x="256" y="64"/></Size>
-					<Anchors>
-						<Anchor point="CENTER" relativeTo="GearTrackerFrame" relativePoint="TOP">
-							<Offset><AbsDimension x="0" y="-20"/></Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="OVERLAY">
-			<FontString name="$parentString" inherits="GameFontNormal" text="Gear Tracker">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
+				<Size><AbsDimension x="256" y="64"/></Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="GearTrackerFrame" relativePoint="TOP">
+						<Offset><AbsDimension x="0" y="-20"/></Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="$parentTitleString" inherits="GameFontNormal" text="Gear Tracker">
 				<Size x="134" y="20" />
 				<Anchors>
 					<Anchor point="TOP" relativeTo="GearTrackerFrame" relativePoint="TOP">
@@ -37,23 +37,46 @@
 					</Anchor>
 				</Anchors>
 			</FontString>
-		</Layer>
-            <Layer>
-                <Button name="$parentWebsiteButton2" inherits="UIPanelButtonTemplate" text="WEBSITE_BUTTON_TEXT" hidden="false">
-				<Size x="80" y="23" />
+			<FontString name="$parentCurrentGearSetString" inherits="GameFontNormal" text="First Spec">
 				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset x="16" y="-97" />
+					<Anchor point="TOP">
+						<Offset x="0" y="-30" />
 					</Anchor>
 				</Anchors>
-				<Scripts>
-				  <OnClick>
-					WowDiabetesWebsiteButton_OnClick()
-				  </OnClick>
-				</Scripts>
-			</Button>
-            </Layer>
-        </Layers>
+			</FontString>
+		</Layer>
+	</Layers>
+        <Frames>
+                <CheckButton name="$parentSpec1Button" inherits="UIRadioButtonTemplate" text="Spec One">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-60" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parentSpec2Button" inherits="UIRadioButtonTemplate" text="Spec One">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-90" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parentSpec3Button" inherits="UIRadioButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-120" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parentSpec4Button" inherits="UIRadioButtonTemplate" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-150" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+            
+        </Frames>
         <Scripts>
 			<OnLoad>
 				GearTracker_OnLoad(self)

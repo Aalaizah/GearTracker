@@ -46,16 +46,15 @@ function eventHandlers.VARIABLES_LOADED()
 end
 
 function eventHandlers.PLAYER_ENTERING_WORLD()
-    name, instanceType = GetInstanceInfo()
+    instanceName, instanceType = GetInstanceInfo()
     if instanceType == "raid" then
-        --print('hello')
         GearTracker_Check()
     end
 end
 
 function GearTracker_Setup()
-    --print("Setup")
     count = GetNumEquipmentSets()
+    local currentGearSets = {}
     if count > 0 then
        for i = 1, count, 1 do
           name = GetEquipmentSetInfo(i)
@@ -63,15 +62,9 @@ function GearTracker_Setup()
           currentGearSets[i] = {name, isEquipped}
        end
     end
-    --[[for i = 1, count, 1 do
-       print('set ' .. i .. ': ' .. sets[i])
-       testSet = GetEquipmentSetItemIDs(sets[i])
-       currentGearSets[i] = testSet
-    end]]
 end
 
 function GearTracker_Update()
-    --print("Update")
     currentGearSets = {}
     count = GetNumEquipmentSets()
     if count > 0 then
@@ -81,22 +74,18 @@ function GearTracker_Update()
           currentGearSets[i] = {name, isEquipped}
        end
     end
-    --[[for i = 1, count, 1 do
-       print('set ' .. i .. ': ' .. sets[i])
-       testSet = GetEquipmentSetItemIDs(sets[i])
-       currentGearSets[i] = {sets[i], testSet}
-    end]]
+    GearTrackerFrame:Hide()
 end
 
 function GearTracker_Check()
-    --print("Checking Gear")
     --[[for i=1, table.maxn(currentGearSets) do
         --for k=1, table.maxn(currentGearSets[i]) do
             print(currentGearSets[i])
         --end
     end]]
     specID = GetSpecialization()
-    id, name = GetSpecializationInfo(specID)
+    id, currentSpec = GetSpecializationInfo(specID)
+    GearTrackerFrameSpec1ButtonText:SetText(currentSpec)
     for k, v in pairs(currentGearSets) do
         if v[1] == name then
             --print(v[1] .. " " .. tostring(v[2]))
@@ -105,6 +94,7 @@ function GearTracker_Check()
             end
         end
     end
+    GearTrackerFrame:Hide()
 end
 
 SLASH_GEARTRACKER1, SLASH_GEARTRACKER2 = '/geartracker', '/gt'
@@ -113,11 +103,8 @@ function SlashCmdList.GEARTRACKER(msg, editbox)
         GearTracker_Setup()
     elseif msg == 'update' then
         GearTracker_Update()
-    elseif msg == 'test' then
-        print(sets)
-        for i=1, table.maxn(sets) do
-            print('set ' .. i .. ': ' .. sets[i])
-        end
+    elseif msg == 'check' then
+        GearTracker_Check()
     else
         if GearTrackerFrame:IsShown() then
             GearTrackerFrame:Hide()
