@@ -1,6 +1,6 @@
 local sets = {}
 local eventHandlers = {}
-local name, currentSpec, count
+local name, currentSpec, count, currentLocation
 
 -- UnitClass(player)
 -- <CheckButton name="UIRadioButtonTemplate" virtual="true">...</CheckButton>
@@ -43,6 +43,10 @@ function eventHandlers.WEAR_EQUIPMENT_SET()
 end
 
 function eventHandlers.VARIABLES_LOADED()
+    GearTrackerFrameSpec1ButtonText:SetText("Brewmaster")
+    GearTrackerFrameSpec2ButtonText:SetText("Windwalker")
+    GearTrackerFrameSpec3ButtonText:SetText("Mistweaver")
+    GearTrackerFrameSpec4ButtonText:SetText("Other")
 end
 
 function eventHandlers.PLAYER_ENTERING_WORLD()
@@ -62,6 +66,7 @@ function GearTracker_Setup()
           currentGearSets[i] = {name, isEquipped}
        end
     end
+    GearTrackerFrameCurrentGearSetString:SetText(sets[1][1])
 end
 
 function GearTracker_Update()
@@ -71,10 +76,11 @@ function GearTracker_Update()
        for i = 1, count, 1 do
           name, icon, setID, isEquipped = GetEquipmentSetInfo(i)
           sets[i] = {name, isEquipped}
-          currentGearSets[i] = {name, isEquipped}
        end
     end
-    GearTrackerFrame:Hide()
+    print(sets[1][1])
+    GearTrackerFrameCurrentGearSetString:SetText(sets[1][1])
+    --GearTrackerFrame:Hide()
 end
 
 function GearTracker_Check()
@@ -88,7 +94,6 @@ function GearTracker_Check()
     GearTrackerFrameSpec1ButtonText:SetText(currentSpec)
     for k, v in pairs(currentGearSets) do
         if v[1] == name then
-            --print(v[1] .. " " .. tostring(v[2]))
             if v[2] == false then
                 message("Correct Equipment not Equiped")
             end

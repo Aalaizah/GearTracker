@@ -1,6 +1,6 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
 <Frame name="GearTrackerFrame" parent="UIParent" movable="true" enableMouse="true">
-		<Size x="200" y="185" /> 
+		<Size x="200" y="200" /> 
 		<Anchors>
 			<Anchor point="TOP" relativeTo="TargetFrame" relativePoint="BOTTOM">
 				<Offset x="20" y="-20" />
@@ -37,7 +37,7 @@
 					</Anchor>
 				</Anchors>
 			</FontString>
-			<FontString name="$parentCurrentGearSetString" inherits="GameFontNormal" text="First Spec">
+			<FontString name="$parentCurrentGearSetString" inherits="GameFontNormal" text="">
 				<Anchors>
 					<Anchor point="TOP">
 						<Offset x="0" y="-30" />
@@ -50,32 +50,44 @@
                 <CheckButton name="$parentSpec1Button" inherits="UIRadioButtonTemplate" text="Spec One">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset x="16" y="-60" />
+						<Offset x="16" y="-50" />
 					</Anchor>
 				</Anchors>
 			</CheckButton>
 			<CheckButton name="$parentSpec2Button" inherits="UIRadioButtonTemplate" text="Spec One">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset x="16" y="-90" />
+						<Offset x="16" y="-80" />
 					</Anchor>
 				</Anchors>
 			</CheckButton>
 			<CheckButton name="$parentSpec3Button" inherits="UIRadioButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset x="16" y="-120" />
+						<Offset x="16" y="-110" />
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="$parentSpec4Button" inherits="UIRadioButtonTemplate" hidden="true">
+			<CheckButton name="$parentSpec4Button" inherits="UIRadioButtonTemplate" hidden="false">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset x="16" y="-150" />
+						<Offset x="16" y="-140" />
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-            
+			<Button name="$parentAcceptButton" inherits="UIPanelButtonTemplate" text="Accept">
+				<Size x="90" y="25"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset x="-15" y="15" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GearTrackerAcceptButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
         </Frames>
         <Scripts>
 			<OnLoad>
