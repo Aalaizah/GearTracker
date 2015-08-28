@@ -6,7 +6,7 @@
 				<Offset x="20" y="-20" />
 			</Anchor>
 		</Anchors>
-		<!--<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
@@ -38,20 +38,22 @@
 				</Anchors>
 			</FontString>
 		</Layer>
-        <Layer>
-            <CheckButton name="$parentSpecOne" inherits="OptionsCheckButtonTemplates" checked="true">
+            <Layer>
+                <Button name="$parentWebsiteButton2" inherits="UIPanelButtonTemplate" text="WEBSITE_BUTTON_TEXT" hidden="false">
+				<Size x="80" y="23" />
 				<Anchors>
-					<Anchor point="LEFT">
-						<Offset>
-                            <AbsDimension x="0" y="0"></AbsDimension>
-                        </Offset>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-97" />
 					</Anchor>
 				</Anchors>
 				<Scripts>
+				  <OnClick>
+					WowDiabetesWebsiteButton_OnClick()
+				  </OnClick>
 				</Scripts>
-			</CheckButton>
+			</Button>
             </Layer>
-        </Layers>-->
+        </Layers>
         <Scripts>
 			<OnLoad>
 				GearTracker_OnLoad(self)

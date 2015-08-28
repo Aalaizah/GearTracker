@@ -48,7 +48,7 @@ end
 function eventHandlers.PLAYER_ENTERING_WORLD()
     name, instanceType = GetInstanceInfo()
     if instanceType == "raid" then
-        print('hello')
+        --print('hello')
         GearTracker_Check()
     end
 end
@@ -89,7 +89,7 @@ function GearTracker_Update()
 end
 
 function GearTracker_Check()
-    print("Checking Gear")
+    --print("Checking Gear")
     --[[for i=1, table.maxn(currentGearSets) do
         --for k=1, table.maxn(currentGearSets[i]) do
             print(currentGearSets[i])
@@ -99,7 +99,7 @@ function GearTracker_Check()
     id, name = GetSpecializationInfo(specID)
     for k, v in pairs(currentGearSets) do
         if v[1] == name then
-            print(v[1] .. " " .. tostring(v[2]))
+            --print(v[1] .. " " .. tostring(v[2]))
             if v[2] == false then
                 message("Correct Equipment not Equiped")
             end
