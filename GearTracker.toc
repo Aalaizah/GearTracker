@@ -2,8 +2,10 @@
 ## Title: Gear Tracker
 ## Notes: Checks to see if you have the correct gear equipped.
 ## Version: .1
-## SavedVariablesPerCharacter: currentGearSets
+## SavedVariablesPerCharacter: currentGearSets, currentSpecSets
 ## Author: Mackster
+
+SpecTable.lua
 
 GearTracker.lua
 GearTracker.xml

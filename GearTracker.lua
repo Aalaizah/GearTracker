@@ -1,5 +1,6 @@
 local sets = {}
 local eventHandlers = {}
+local specList = specListTable
 local name, currentSpec, count, currentLocation
 
 -- UnitClass(player)
@@ -43,10 +44,18 @@ function eventHandlers.WEAR_EQUIPMENT_SET()
 end
 
 function eventHandlers.VARIABLES_LOADED()
-    GearTrackerFrameSpec1ButtonText:SetText("Brewmaster")
-    GearTrackerFrameSpec2ButtonText:SetText("Windwalker")
-    GearTrackerFrameSpec3ButtonText:SetText("Mistweaver")
-    GearTrackerFrameSpec4ButtonText:SetText("Other")
+    local class = UnitClass("player")
+    GearTrackerFrameSpec1ButtonText:SetText(specList[class][1])
+    GearTrackerFrameSpec2ButtonText:SetText(specList[class][2])
+    GearTrackerFrameSpec3ButtonText:SetText(specList[class][3])
+    GearTrackerFrameSpec4Button:Hide()
+    if class == "Druid" then
+        GearTrackerFrameSpec4Button:Show()
+        GearTrackerFrameSpec4ButtonText:SetText(specList[class][4])
+    end
+    currentGearSets = currentGearSets
+    currentSpecSets = currentSpecSets
+    count = GetNumEquipmentSets()
 end
 
 function eventHandlers.PLAYER_ENTERING_WORLD()
@@ -57,41 +66,38 @@ function eventHandlers.PLAYER_ENTERING_WORLD()
 end
 
 function GearTracker_Setup()
+    SetAllButtonsFalse()
     count = GetNumEquipmentSets()
-    local currentGearSets = {}
+    currentLocation = 1
+    currentGearSets = {}
+    currentSpecSets = {}
     if count > 0 then
-       for i = 1, count, 1 do
-          name = GetEquipmentSetInfo(i)
-          sets[i] = {name, isEquipped}
-          currentGearSets[i] = {name, isEquipped}
-       end
+        for i = 1, count, 1 do
+            name, icon, setID, isEquipped = GetEquipmentSetInfo(i)
+            currentGearSets[i] = {name, isEquipped}
+        end
+        GearTrackerFrameCurrentGearSetString:SetText(currentGearSets[currentLocation][1])
     end
-    GearTrackerFrameCurrentGearSetString:SetText(sets[1][1])
 end
 
 function GearTracker_Update()
     currentGearSets = {}
+    currentSpecSets = {}
     count = GetNumEquipmentSets()
+    currentLocation = 1
     if count > 0 then
-       for i = 1, count, 1 do
-          name, icon, setID, isEquipped = GetEquipmentSetInfo(i)
-          sets[i] = {name, isEquipped}
-       end
+        for i = 1, count, 1 do
+            name, icon, setID, isEquipped = GetEquipmentSetInfo(i)
+            currentGearSets[i] = {name, isEquipped}
+        end
+        GearTrackerFrameCurrentGearSetString:SetText(currentGearSets[currentLocation][1])
     end
-    print(sets[1][1])
-    GearTrackerFrameCurrentGearSetString:SetText(sets[1][1])
     --GearTrackerFrame:Hide()
 end
 
 function GearTracker_Check()
-    --[[for i=1, table.maxn(currentGearSets) do
-        --for k=1, table.maxn(currentGearSets[i]) do
-            print(currentGearSets[i])
-        --end
-    end]]
     specID = GetSpecialization()
     id, currentSpec = GetSpecializationInfo(specID)
-    GearTrackerFrameSpec1ButtonText:SetText(currentSpec)
     for k, v in pairs(currentGearSets) do
         if v[1] == name then
             if v[2] == false then
@@ -99,7 +105,24 @@ function GearTracker_Check()
             end
         end
     end
-    GearTrackerFrame:Hide()
+end
+
+function GearTrackerAcceptButton_OnClick()
+    currentSpecSets[currentLocation] = {GearTrackerFrameSpec1Button:GetChecked(), GearTrackerFrameSpec2Button:GetChecked(), GearTrackerFrameSpec3Button:GetChecked(), GearTrackerFrameSpec4Button:GetChecked()}
+    SetAllButtonsFalse()
+    currentLocation = currentLocation + 1
+    if currentLocation <= count then
+        GearTrackerFrameCurrentGearSetString:SetText(currentGearSets[currentLocation][1])
+    else
+        GearTrackerFrame:Hide()
+    end
+end
+
+function SetAllButtonsFalse()
+    GearTrackerFrameSpec1Button:SetChecked(false)
+    GearTrackerFrameSpec2Button:SetChecked(false)
+    GearTrackerFrameSpec3Button:SetChecked(false)
+    GearTrackerFrameSpec4Button:SetChecked(false)
 end
 
 SLASH_GEARTRACKER1, SLASH_GEARTRACKER2 = '/geartracker', '/gt'
