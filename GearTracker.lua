@@ -1,7 +1,7 @@
 local sets = {}
 local eventHandlers = {}
 local specList = specListTable
-local name, currentSpec, count, currentLocation
+local name, currentSpec, count, currentLocation, class
 
 -- UnitClass(player)
 -- <CheckButton name="UIRadioButtonTemplate" virtual="true">...</CheckButton>
@@ -25,6 +25,10 @@ function eventHandlers.ADDON_LOADED(frame, ...)
     if ... == "GearTracker" then
         if currentGearSets == nil then
             GearTracker_Setup()
+        elseif currentSpecSets == nil then
+            GearTracker_Setup()
+        else
+            GearTrackerFrame:Hide()
         end
     end
     frame:UnregisterEvent("ADDON_LOADED")
@@ -44,7 +48,7 @@ function eventHandlers.WEAR_EQUIPMENT_SET()
 end
 
 function eventHandlers.VARIABLES_LOADED()
-    local class = UnitClass("player")
+    class = UnitClass("player")
     GearTrackerFrameSpec1ButtonText:SetText(specList[class][1])
     GearTrackerFrameSpec2ButtonText:SetText(specList[class][2])
     GearTrackerFrameSpec3ButtonText:SetText(specList[class][3])
@@ -81,6 +85,7 @@ function GearTracker_Setup()
 end
 
 function GearTracker_Update()
+    GearTrackerFrame:Show()
     currentGearSets = {}
     currentSpecSets = {}
     count = GetNumEquipmentSets()
@@ -97,24 +102,43 @@ end
 
 function GearTracker_Check()
     specID = GetSpecialization()
+    count = GetNumEquipmentSets()
     id, currentSpec = GetSpecializationInfo(specID)
-    for k, v in pairs(currentGearSets) do
-        if v[1] == name then
-            if v[2] == false then
-                message("Correct Equipment not Equiped")
-            end
+    for i = 1, count, 1 do
+        print(currentGearSets[i][1])
+        if currentSpecSets[currentGearSets[i][1]][currentSpec] == true then
+            print(currentSpecSets[currentGearSets[i][1]][currentSpec])
+            break
+        else
+            message("Correct Equipment not Equipped")
+            break
         end
     end
 end
 
 function GearTrackerAcceptButton_OnClick()
-    currentSpecSets[currentLocation] = {GearTrackerFrameSpec1Button:GetChecked(), GearTrackerFrameSpec2Button:GetChecked(), GearTrackerFrameSpec3Button:GetChecked(), GearTrackerFrameSpec4Button:GetChecked()}
+    if class == "Druid" then
+        currentSpecSets[currentGearSets[currentLocation][1]] = { 
+            [(specList[class][1])] = GearTrackerFrameSpec1Button:GetChecked(), 
+            [(specList[class][2])] = GearTrackerFrameSpec2Button:GetChecked(), 
+            [(specList[class][3])] = GearTrackerFrameSpec3Button:GetChecked(), 
+            [(specList[class][4])] = GearTrackerFrameSpec4Button:GetChecked()
+        }
+    else
+        currentSpecSets[currentGearSets[currentLocation][1]] = {
+            [(specList[class][1])] = GearTrackerFrameSpec1Button:GetChecked(), 
+            [(specList[class][2])] = GearTrackerFrameSpec2Button:GetChecked(), 
+            [(specList[class][3])] = GearTrackerFrameSpec3Button:GetChecked()
+        }
+    end
+    
     SetAllButtonsFalse()
     currentLocation = currentLocation + 1
     if currentLocation <= count then
         GearTrackerFrameCurrentGearSetString:SetText(currentGearSets[currentLocation][1])
     else
         GearTrackerFrame:Hide()
+        currentLocation = 0
     end
 end
 
@@ -134,10 +158,6 @@ function SlashCmdList.GEARTRACKER(msg, editbox)
     elseif msg == 'check' then
         GearTracker_Check()
     else
-        if GearTrackerFrame:IsShown() then
-            GearTrackerFrame:Hide()
-        else
-            GearTrackerFrame:Show()
-        end
+        GearTracker_Update()
     end
 end
