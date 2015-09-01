@@ -105,13 +105,12 @@ function GearTracker_Check()
     count = GetNumEquipmentSets()
     id, currentSpec = GetSpecializationInfo(specID)
     for i = 1, count, 1 do
-        print(currentGearSets[i][1])
         if currentSpecSets[currentGearSets[i][1]][currentSpec] == true then
-            print(currentSpecSets[currentGearSets[i][1]][currentSpec])
-            break
-        else
-            message("Correct Equipment not Equipped")
-            break
+            if currentGearSets[i][2] == false then
+                message("Wrong Equipment")
+            else
+                break
+            end
         end
     end
 end
