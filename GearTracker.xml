@@ -1,8 +1,8 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
-<Frame name="GearTrackerFrame" parent="UIParent" movable="true" enableMouse="true">
+<Frame name="GearTrackerFrame" parent="UIParent" movable="true" enableMouse="true" hidden="true">
 		<Size x="200" y="200" /> 
 		<Anchors>
-			<Anchor point="TOP" relativeTo="TargetFrame" relativePoint="BOTTOM">
+			<Anchor point="CENTER">
 				<Offset x="20" y="-20" />
 			</Anchor>
 		</Anchors>
